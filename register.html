@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Registration - Cooperative System</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#123c35">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #edf3ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 430px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #123c35;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 17px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #267b60;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #267b60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1b6049;
+        }
+
+        #message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #267b60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Member Registration</h2>
+    <p class="subtitle">
+        Create your Cooperative Member Account
+    </p>
+
+    <form id="registerForm">
+
+        <label>Member ID</label>
+        <input type="text" id="memberId"
+               placeholder="Enter your Member ID" required>
+
+        <label>Username</label>
+        <input type="text" id="username"
+               placeholder="Create username" required>
+
+        <label>Password</label>
+        <input type="password" id="password"
+               placeholder="Create password" required>
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword"
+               placeholder="Confirm password" required>
+
+        <button type="submit">Register</button>
+
+        <p id="message"></p>
+
+    </form>
+
+    <div class="login-link">
+        Already have an account?
+        <a href="login.html">Login here</a>
+    </div>
+
+</div>
+
+<script>
+const form = document.getElementById("registerForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const memberId = document.getElementById("memberId")
+        .value.trim();
+
+    const username = document.getElementById("username")
+        .value.trim();
+
+    const password = document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const members = JSON.parse(
+        localStorage.getItem("coopMembers") || "[]"
+    );
+
+    const accounts = JSON.parse(
+        localStorage.getItem("coopMemberAccounts") || "[]"
+    );
+
+    const member = members.find(m =>
+    `MEM-${String(m.id).slice(-6)}`.toLowerCase()
+    === memberId.toLowerCase()
+    );
+
+    if (!member) {
+        message.style.color = "#c0392b";
+        message.textContent =
+            "Member ID not found. Please contact the Admin.";
+        return;
+    }
+
+    const alreadyRegistered = accounts.some(a =>
+        String(a.memberId).toLowerCase() === memberId.toLowerCase()
+    );
+
+    if (alreadyRegistered) {
+        message.style.color = "#c0392b";
+        message.textContent =
+            "This Member ID is already registered.";
+        return;
+    }
+
+    const usernameExists = accounts.some(a =>
+        a.username.toLowerCase() === username.toLowerCase()
+    );
+
+    if (usernameExists) {
+        message.style.color = "#c0392b";
+        message.textContent = "Username already exists.";
+        return;
+    }
+
+    if (password.length < 6) {
+        message.style.color = "#c0392b";
+        message.textContent =
+            "Password must be at least 6 characters.";
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        message.style.color = "#c0392b";
+        message.textContent = "Passwords do not match.";
+        return;
+    }
+
+    accounts.push({
+        memberId: memberId,
+        username: username,
+        password: password
+    });
+
+    localStorage.setItem(
+        "coopMemberAccounts",
+        JSON.stringify(accounts)
+    );
+
+    message.style.color = "#267b60";
+    message.textContent =
+        "Registration successful! You can now login.";
+
+    form.reset();
+
+});
+
+</script>
+
+<script src="./pwa.js"></script>
+
+</body>
+</html>

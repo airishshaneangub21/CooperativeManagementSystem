@@ -1,0 +1,481 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #123c35;
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    margin: 8px 0;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #267b60;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    width: calc(100% - 250px);
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #123c35;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #777;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #00000012;
+    border-left: 5px solid #267b60;
+}
+
+.card h3 {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.card h1 {
+    color: #123c35;
+}
+
+.recent {
+    background: white;
+    padding: 25px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #00000012;
+}
+
+.recent h2 {
+    color: #123c35;
+    margin-bottom: 10px;
+}
+
+.recent p {
+    color: #777;
+}
+
+@media (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 170px;
+    }
+
+    .main-content {
+        margin-left: 170px;
+        width: calc(100% - 170px);
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* MEMBERS MANAGEMENT */
+
+.member-form,
+.member-table {
+    background: white;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #00000012;
+}
+
+.member-form h2,
+.member-table h2 {
+    color: #123c35;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.form-grid label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+    font-weight: bold;
+}
+
+.form-grid input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form-grid input:focus,
+.table-header input:focus {
+    border-color: #267b60;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.form-buttons button,
+.action-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+#saveBtn {
+    background: #267b60;
+}
+
+.cancel-btn {
+    background: #777;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.table-header input {
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th, td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #123c35;
+    color: white;
+}
+
+td {
+    color: #444;
+}
+
+.edit-btn {
+    background: #267b60;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background: #d94343;
+}
+
+.action-btn:hover,
+.form-buttons button:hover {
+    opacity: 0.85;
+}
+
+#memberCount {
+    margin-top: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .table-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
+
+/* SAVINGS MANAGEMENT */
+
+.savings-cards {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.member-form select,
+.member-form input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    outline: none;
+}
+
+.member-form select:focus,
+.member-form input:focus {
+    border-color: #267b60;
+}
+
+#savingsSaveBtn {
+    background: #267b60;
+}
+
+#savingsCancelBtn {
+    background: #777;
+}
+
+.deposit-label {
+    color: #267b60;
+    font-weight: bold;
+}
+
+.withdrawal-label {
+    color: #d94343;
+    font-weight: bold;
+}
+
+/* LOANS MANAGEMENT */
+
+#loanForm select,
+#loanForm input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+#loanForm select:focus,
+#loanForm input:focus {
+    border-color: #267b60;
+}
+
+#loanSaveBtn {
+    background: #267b60;
+}
+
+#loanCancelBtn {
+    background: #777;
+}
+
+.loan-pending {
+    color: #d18a00;
+    font-weight: bold;
+}
+
+.loan-approved {
+    color: #267b60;
+    font-weight: bold;
+}
+
+.loan-rejected {
+    color: #d94343;
+    font-weight: bold;
+}
+
+.loan-cards {
+    margin-top: 25px;
+}
+
+#loanCount {
+    margin-top: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* PAYMENTS MANAGEMENT */
+
+#paymentForm select,
+#paymentForm input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    background: white;
+}
+
+#paymentForm input:focus,
+#paymentForm select:focus {
+    border-color: #267b60;
+}
+
+#paymentForm input[readonly] {
+    background: #f1f3f5;
+    color: #267b60;
+    font-weight: bold;
+}
+
+#paymentForm button[type="submit"] {
+    background: #267b60;
+}
+
+#paymentCancelBtn {
+    background: #777;
+}
+
+.payment-success {
+    color: #267b60;
+    font-weight: bold;
+}
+
+.payment-partial {
+    color: #d18a00;
+    font-weight: bold;
+}
+
+.payment-cards {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.page-header p {
+    color: #777;
+    margin-top: 5px;
+}
+
+.form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.form-group {
+    margin: 15px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background: #267b60;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #1b6049;
+}
+
+@media print {
+    .sidebar,
+    .page-header button,
+    #reportSearch,
+    #reportType,
+    .form-group {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .page {
+        display: block !important;
+    }
+
+    .form-container,
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+

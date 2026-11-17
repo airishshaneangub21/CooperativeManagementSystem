@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Cooperative System</title>
+
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#123c35">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #edf3ef;
+            color: #333;
+        }
+
+        header {
+            background: #123c35;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h2 {
+            font-size: 21px;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            color: #123c35;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #777;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .card h3 {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card h1 {
+            color: #267b60;
+            font-size: 27px;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .section h3 {
+            color: #123c35;
+            margin-bottom: 18px;
+        }
+
+        .profile-info p {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .profile-info strong {
+            display: inline-block;
+            min-width: 115px;
+        }
+
+        .note {
+            color: #777;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🏦 Cooperative Member Portal</h2>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome, <span id="memberName">Member</span>!</h2>
+        <p>Welcome to your Cooperative Member Dashboard.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>My Savings</h3>
+            <h1 id="mySavings">₱0.00</h1>
+        </div>
+
+        <div class="card">
+            <h3>My Loans</h3>
+            <h1 id="myLoans">₱0.00</h1>
+        </div>
+
+        <div class="card">
+            <h3>My Payments</h3>
+            <h1 id="myPayments">0</h1>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h3>My Profile</h3>
+
+        <div class="profile-info">
+            <p><strong>Member ID:</strong> <span id="memberId"></span></p>
+            <p><strong>Full Name:</strong> <span id="fullName"></span></p>
+            <p><strong>Contact:</strong> <span id="contact"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Address:</strong> <span id="address"></span></p>
+        </div>
+    </div>
+
+<div class="section">
+    <h3>My Savings Transaction History</h3>
+
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="padding:12px; text-align:left;">Date</th>
+                    <th style="padding:12px; text-align:left;">Type</th>
+                    <th style="padding:12px; text-align:left;">Amount</th>
+                    <th style="padding:12px; text-align:left;">Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="savingsHistory">
+                <tr>
+                    <td colspan="4" style="padding:12px;">
+                        No savings transactions yet.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="section">
+    <h3>My Payment History</h3>
+
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Loan ID</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Method</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+
+            <tbody id="paymentHistory">
+                <tr>
+                    <td colspan="5">No payment history yet.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    <div class="section">
+        <h3>My Account</h3>
+        <p>Your member account is active.</p>
+        <p class="note">
+            Savings, loans and payment information are demo placeholders
+            until connected to the corresponding records.
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    Cooperative Management System © 2026
+</footer>
+
+
+<script>
+
+    // CHECK MEMBER LOGIN
+    if (localStorage.getItem("memberLoggedIn") !== "true") {
+        window.location.href = "login.html";
+    }
+
+    // GET CURRENT MEMBER
+    const username = localStorage.getItem("memberUsername");
+
+    const accounts = JSON.parse(
+        localStorage.getItem("coopMemberAccounts") || "[]"
+    );
+
+    const members = JSON.parse(
+        localStorage.getItem("coopMembers") || "[]"
+    );
+
+    const account = accounts.find(a => a.username === username);
+
+    const member = account
+        ? members.find(m =>
+            `MEM-${String(m.id).slice(-6)}`.toLowerCase()
+            === String(account.memberId).toLowerCase()
+        )
+        : null;
+
+    if (!account || !member) {
+
+        localStorage.removeItem("memberLoggedIn");
+        localStorage.removeItem("memberUsername");
+
+        window.location.href = "login.html";
+
+    } else {
+
+        // DISPLAY MEMBER PROFILE
+        document.getElementById("memberName").textContent =
+            member.firstName;
+
+        document.getElementById("memberId").textContent =
+            account.memberId;
+
+        document.getElementById("fullName").textContent =
+            member.firstName + " " + member.lastName;
+
+        document.getElementById("contact").textContent =
+            member.contact || "Not provided";
+
+        document.getElementById("email").textContent =
+            member.email || "Not provided";
+
+        document.getElementById("address").textContent =
+            member.address || "Not provided";
+
+
+        // LOAD SAVINGS, LOANS AND PAYMENTS
+        const savings = JSON.parse(
+            localStorage.getItem("coopSavings") || "[]"
+        );
+
+        const loans = JSON.parse(
+            localStorage.getItem("coopLoans") || "[]"
+        );
+
+        const payments = JSON.parse(
+            localStorage.getItem("coopPayments") || "[]"
+        );
+
+
+        // =================================
+        // MY SAVINGS
+        // =================================
+
+        const myTransactions = savings.filter(transaction =>
+            String(transaction.memberId) === String(member.id)
+        );
+
+        const totalSavings = myTransactions.reduce((total, transaction) => {
+
+            if (transaction.type === "Deposit") {
+                return total + Number(transaction.amount);
+            }
+
+            if (transaction.type === "Withdrawal") {
+                return total - Number(transaction.amount);
+            }
+
+            return total;
+
+        }, 0);
+
+        document.getElementById("mySavings").textContent =
+            totalSavings.toLocaleString("en-PH", {
+                style: "currency",
+                currency: "PHP"
+            });
+
+
+        // =================================
+        // MY SAVINGS HISTORY
+        // =================================
+
+        const savingsHistory =
+            document.getElementById("savingsHistory");
+
+        const memberSavingsHistory = myTransactions
+            .slice()
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        savingsHistory.innerHTML = "";
+
+        if (memberSavingsHistory.length === 0) {
+
+            savingsHistory.innerHTML = `
+                <tr>
+                    <td colspan="4" style="padding:12px;">
+                        No savings transactions yet.
+                    </td>
+                </tr>
+            `;
+
+        } else {
+
+            memberSavingsHistory.forEach(transaction => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td style="padding:12px;">${transaction.date || "-"}</td>
+                    <td style="padding:12px;">${transaction.type}</td>
+                    <td style="padding:12px;">
+                        ₱${Number(transaction.amount).toLocaleString("en-PH", {
+                            minimumFractionDigits: 2
+                        })}
+                    </td>
+                    <td style="padding:12px;">${transaction.remarks || "-"}</td>
+                `;
+
+                savingsHistory.appendChild(row);
+
+            });
+
+        }
+
+
+        // =================================
+        // MY LOANS
+        // =================================
+
+        const myMemberLoans = loans.filter(loan =>
+            String(loan.memberId) === String(member.id) &&
+            loan.status === "Approved"
+        );
+
+        const remainingLoans = myMemberLoans.reduce((total, loan) => {
+
+            const amount = Number(loan.amount);
+            const interest = Number(loan.interest);
+            const term = Number(loan.term);
+
+            const totalInterest =
+                amount * (interest / 100) * (term / 12);
+
+            const payable = amount + totalInterest;
+
+            const paid = payments
+                .filter(payment =>
+                    String(payment.loanId) === String(loan.id)
+                )
+                .reduce((sum, payment) =>
+                    sum + Number(payment.amount), 0
+                );
+
+            return total + Math.max(0, payable - paid);
+
+        }, 0);
+
+        document.getElementById("myLoans").textContent =
+            remainingLoans.toLocaleString("en-PH", {
+                style: "currency",
+                currency: "PHP"
+            });
+
+
+        // =================================
+        // MY PAYMENTS
+        // =================================
+
+        const myMemberPayments = payments.filter(payment =>
+            String(payment.memberId) === String(member.id)
+        );
+
+        const totalPayments = myMemberPayments.reduce(
+            (total, payment) => total + Number(payment.amount),
+            0
+        );
+
+        document.getElementById("myPayments").textContent =
+            totalPayments.toLocaleString("en-PH", {
+                style: "currency",
+                currency: "PHP"
+            });
+
+
+        // =================================
+        // MY PAYMENT HISTORY
+        // =================================
+
+        const paymentHistory =
+            document.getElementById("paymentHistory");
+
+        const memberPaymentHistory = myMemberPayments
+            .slice()
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        paymentHistory.innerHTML = "";
+
+        if (memberPaymentHistory.length === 0) {
+
+            paymentHistory.innerHTML = `
+                <tr>
+                    <td colspan="5" style="padding:12px;">
+                        No payment history yet.
+                    </td>
+                </tr>
+            `;
+
+        } else {
+
+            memberPaymentHistory.forEach(payment => {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td style="padding:12px;">${payment.date || "-"}</td>
+                    <td style="padding:12px;">${payment.loanId || "-"}</td>
+                    <td style="padding:12px;">
+                        ₱${Number(payment.amount).toLocaleString("en-PH", {
+                            minimumFractionDigits: 2
+                        })}
+                    </td>
+                    <td style="padding:12px;">${payment.method || "-"}</td>
+                    <td style="padding:12px;">${payment.remarks || "-"}</td>
+                `;
+
+                paymentHistory.appendChild(row);
+
+            });
+
+        }
+
+    }
+
+
+    // =================================
+    // LOGOUT
+    // =================================
+
+    function logout() {
+
+        localStorage.removeItem("memberLoggedIn");
+        localStorage.removeItem("memberUsername");
+
+        window.location.href = "login.html";
+
+    }
+
+</script>
+
+
+<script src="./pwa.js"></script>
+
+</body>
+</html>

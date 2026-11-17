@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooperative Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#123c35">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>COOP SYSTEM</h2>
+
+        <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" data-page="members">Members</a>
+        <a href="#" class="nav-link" data-page="savings">Savings</a>
+        <a href="#" class="nav-link" data-page="loans">Loans</a>
+        <a href="#" class="nav-link" data-page="payments">Payments</a>
+        <a href="#" class="nav-link" data-page="reports">Reports</a>
+        <a href="#" class="nav-link" data-page="logout">Logout</a>
+    </div>
+
+    <div class="main-content">
+
+        <section id="dashboard" class="page">
+            <header>
+                <h1>Dashboard</h1>
+                <p>Welcome to Cooperative Management System</p>
+            </header>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Members</h3>
+                    <h1 id="totalMembers">0</h1>
+                </div>
+
+                <div class="card">
+                    <h3>Total Savings</h3>
+                    <h1 id="totalSavings">₱0.00</h1>
+                </div>
+
+                
+                <div class="card">
+                    <h3>Active Loans</h3>
+                    <h1 id="totalActiveLoans">0</h1>
+                </div>
+
+
+                <div class="card">
+                    <h3>Total Payments</h3>
+                    <h1>₱0.00</h1>
+                </div>
+            </div>
+
+            <section class="recent">
+                <h2>Cooperative Management System</h2>
+                <p>Manage your members, savings, loans, and payments in one place.</p>
+            </section>
+        </section>
+
+        
+<section id="members" class="page" hidden>
+
+    <header>
+        <h1>Members Management</h1>
+        <p>Manage and monitor cooperative members.</p>
+    </header>
+
+    <div class="member-form">
+        <h2 id="formTitle">Add New Member</h2>
+
+        <form id="memberForm">
+
+            <div class="form-grid">
+                <div>
+                    <label>First Name</label>
+                    <input type="text" id="firstName" placeholder="Enter first name" required>
+                </div>
+
+                <div>
+                    <label>Last Name</label>
+                    <input type="text" id="lastName" placeholder="Enter last name" required>
+                </div>
+
+                <div>
+                    <label>Contact Number</label>
+                    <input type="tel" id="contact" placeholder="Enter contact number" required>
+                </div>
+
+                <div>
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="Enter email address" required>
+                </div>
+
+                <div class="full-width">
+                    <label>Address</label>
+                    <input type="text" id="address" placeholder="Enter complete address" required>
+                </div>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" id="saveBtn">Add Member</button>
+                <button type="button" id="cancelBtn" class="cancel-btn" hidden>Cancel</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="member-table">
+
+        <div class="table-header">
+            <h2>Members List</h2>
+            <input type="search" id="searchMember"
+                placeholder="Search members...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="memberTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <p id="memberCount">Total Members: 0</p>
+
+    </div>
+
+</section>
+
+
+<section id="savings" class="page" hidden>
+
+    <header>
+        <h1>Savings Management</h1>
+        <p>Manage member deposits, withdrawals, and savings balances.</p>
+    </header>
+
+    <div class="cards savings-cards">
+        <div class="card">
+            <h3>Total Savings Balance</h3>
+            <h1 id="savingsBalance">₱0.00</h1>
+        </div>
+
+        <div class="card">
+            <h3>Total Deposits</h3>
+            <h1 id="totalDeposits">₱0.00</h1>
+        </div>
+
+        <div class="card">
+            <h3>Total Withdrawals</h3>
+            <h1 id="totalWithdrawals">₱0.00</h1>
+        </div>
+    </div>
+
+    <div class="member-form">
+        <h2>Add Savings Transaction</h2>
+
+        <form id="savingsForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Select Member</label>
+                    <select id="savingsMember" required>
+                        <option value="">Select Member</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Transaction Type</label>
+                    <select id="transactionType" required>
+                        <option value="Deposit">Deposit</option>
+                        <option value="Withdrawal">Withdrawal</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Amount (₱)</label>
+                    <input type="number" id="savingsAmount"
+                        min="0.01" step="0.01"
+                        placeholder="Enter amount" required>
+                </div>
+
+                <div>
+                    <label>Transaction Date</label>
+                    <input type="date" id="savingsDate" required>
+                </div>
+
+                <div class="full-width">
+                    <label>Remarks</label>
+                    <input type="text" id="savingsRemarks"
+                        placeholder="Optional remarks">
+                </div>
+
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" id="savingsSaveBtn">
+                    Save Transaction
+                </button>
+                <button type="button" id="savingsCancelBtn"
+                    class="cancel-btn" hidden>
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="member-table">
+
+        <div class="table-header">
+            <h2>Savings Transactions</h2>
+
+            <input type="search" id="searchSavings"
+                placeholder="Search transactions...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Member Name</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="savingsTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="savingsCount">Total Transactions: 0</p>
+
+    </div>
+
+</section>
+
+
+<section id="loans" class="page" hidden>
+
+    <header>
+        <h1>Loans Management</h1>
+        <p>Manage member loan applications and approvals.</p>
+    </header>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Loan Applications</h3>
+            <h1 id="totalLoanApplications">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Approved Loans</h3>
+            <h1 id="approvedLoans">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Pending Loans</h3>
+            <h1 id="pendingLoans">0</h1>
+        </div>
+    </div>
+
+    <div class="member-form">
+        <h2 id="loanFormTitle">New Loan Application</h2>
+
+        <form id="loanForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Select Member</label>
+                    <select id="loanMember" required>
+                        <option value="">Select Member</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Loan Amount (₱)</label>
+                    <input type="number" id="loanAmount"
+                        min="0.01" step="0.01"
+                        placeholder="Enter loan amount" required>
+                </div>
+
+                <div>
+                    <label>Annual Interest Rate (%)</label>
+                    <input type="number" id="interestRate"
+                        min="0" max="100" step="0.01"
+                        placeholder="Example: 5" required>
+                </div>
+
+                <div>
+                    <label>Loan Term (Months)</label>
+                    <input type="number" id="loanTerm"
+                        min="1" max="600"
+                        placeholder="Enter months" required>
+                </div>
+
+                <div>
+                    <label>Application Date</label>
+                    <input type="date" id="loanDate" required>
+                </div>
+
+                <div>
+                    <label>Loan Status</label>
+                    <select id="loanStatus" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <label>Loan Purpose</label>
+                    <input type="text" id="loanPurpose"
+                        placeholder="Enter purpose of loan" required>
+                </div>
+
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" id="loanSaveBtn">
+                    Submit Application
+                </button>
+
+                <button type="button" id="loanCancelBtn"
+                    class="cancel-btn" hidden>
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="member-table">
+
+        <div class="table-header">
+            <h2>Loan Applications</h2>
+
+            <input type="search" id="searchLoan"
+                placeholder="Search loan applications...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Loan ID</th>
+                        <th>Member Name</th>
+                        <th>Amount</th>
+                        <th>Interest</th>
+                        <th>Term</th>
+                        <th>Monthly Payment</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Purpose</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="loanTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="loanCount">Total Applications: 0</p>
+
+    </div>
+
+</section>
+
+<section id="payments" class="page" hidden>
+
+    <header>
+        <h1>Payments Management</h1>
+        <p>Record and monitor member loan payments.</p>
+    </header>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Payments</h3>
+            <h1 id="paymentTotal">₱0.00</h1>
+        </div>
+
+        <div class="card">
+            <h3>Total Transactions</h3>
+            <h1 id="paymentTransactions">0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Fully Paid Loans</h3>
+            <h1 id="fullyPaidLoans">0</h1>
+        </div>
+    </div>
+
+    <div class="member-form">
+        <h2>Record New Payment</h2>
+
+        <form id="paymentForm">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Select Member</label>
+                    <select id="paymentMember" required>
+                        <option value="">Select Member</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Select Approved Loan</label>
+                    <select id="paymentLoan" required>
+                        <option value="">Select Loan</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Loan Balance</label>
+                    <input type="text" id="paymentBalance"
+                        placeholder="Remaining balance" readonly>
+                </div>
+
+                <div>
+                    <label>Payment Amount (₱)</label>
+                    <input type="number" id="paymentAmount"
+                        min="0.01" step="0.01"
+                        placeholder="Enter payment amount" required>
+                </div>
+
+                <div>
+                    <label>Payment Date</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+
+                <div>
+                    <label>Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="">Select Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="GCash">GCash</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <label>Remarks</label>
+                    <input type="text" id="paymentRemarks"
+                        placeholder="Optional remarks">
+                </div>
+
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit">Save Payment</button>
+                <button type="reset" class="cancel-btn"
+                    id="paymentCancelBtn">Clear</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="member-table">
+
+        <div class="table-header">
+            <h2>Payment History</h2>
+
+            <input type="search" id="searchPayment"
+                placeholder="Search payments...">
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Member</th>
+                        <th>Loan ID</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Method</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="paymentTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="paymentCount">Total Payments: 0</p>
+
+    </div>
+
+</section>
+
+<section id="reports" class="page" hidden>
+    <div class="page-header">
+        <div>
+            <h2>Reports Management</h2>
+            <p>View and print cooperative records.</p>
+        </div>
+        <button type="button" id="printReportBtn" class="btn-primary">
+            Print Report
+        </button>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total Members</h3>
+            <h1 id="reportMemberTotal">0</h1>
+        </div>
+        <div class="card">
+            <h3>Total Savings</h3>
+            <h1 id="reportSavingsTotal">₱0.00</h1>
+        </div>
+        <div class="card">
+            <h3>Total Loans</h3>
+            <h1 id="reportLoanTotal">₱0.00</h1>
+        </div>
+        <div class="card">
+            <h3>Total Payments</h3>
+            <h1 id="reportPaymentTotal">₱0.00</h1>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h3>Generate Report</h3>
+
+        <div class="form-group">
+            <label for="reportType">Select Report</label>
+            <select id="reportType">
+                <option value="members">Members Report</option>
+                <option value="savings">Savings Report</option>
+                <option value="loans">Loans Report</option>
+                <option value="payments">Payments Report</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="reportSearch">Search Records</label>
+            <input type="text" id="reportSearch"
+                   placeholder="Search report...">
+        </div>
+
+        <h3 id="reportTitle">Members Report</h3>
+
+        <div class="table-container">
+            <table>
+                <thead id="reportTableHead"></thead>
+                <tbody id="reportTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="./pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cooperative Management System</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#123c35">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #edf3ef;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header .logo {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .login-header h2 {
+            color: #123c35;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #267b60;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background: #267b60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #1b6049;
+        }
+
+        #loginMessage {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-header">
+            <div class="logo">🏦</div>
+            <h2>Cooperative System</h2>
+            <p>Management System Login</p>
+        </div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username"
+                       placeholder="Enter username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password"
+                       placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+
+            <p id="loginMessage"></p>
+
+        </form>
+        <div class="footer">
+            Don't have an account?
+            <a href="register.html">Register here</a>
+        </div>
+
+        <div class="footer">
+            Cooperative Management System
+        </div>
+
+    </div>
+
+    <script>
+        
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
+
+// ADMIN LOGIN
+const correctUsername = "admin";
+const correctPassword = "admin123";
+
+// CHECK EXISTING SESSION
+if (localStorage.getItem("memberLoggedIn") === "true") {
+    window.location.href = "member-dashboard.html";
+} else if (localStorage.getItem("isLoggedIn") === "true") {
+    window.location.href = "index.html";
+}
+
+// LOGIN PROCESS
+loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username")
+        .value.trim();
+
+    const password = document.getElementById("password").value;
+
+    // CHECK ADMIN
+    if (
+        username === correctUsername &&
+        password === correctPassword
+    ) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("currentUser", username);
+
+        localStorage.removeItem("memberLoggedIn");
+        localStorage.removeItem("memberUsername");
+
+        window.location.href = "index.html";
+        return;
+    }
+
+    // CHECK MEMBER ACCOUNTS
+    const accounts = JSON.parse(
+        localStorage.getItem("coopMemberAccounts") || "[]"
+    );
+
+    const memberAccount = accounts.find(account =>
+        account.username.toLowerCase() === username.toLowerCase() &&
+        account.password === password
+    );
+
+    if (memberAccount) {
+
+        localStorage.setItem("memberLoggedIn", "true");
+        localStorage.setItem("memberUsername", memberAccount.username);
+
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("currentUser");
+
+        window.location.href = "member-dashboard.html";
+
+    } else {
+        loginMessage.textContent =
+            "Invalid username or password!";
+    }
+});
+
+    </script>
+    <script src="./pwa.js"></script>
+</body>
+</html>
